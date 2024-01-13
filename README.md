@@ -83,17 +83,4 @@ sequenceDiagram
     deactivate spa
 
     Note right of browser: Usuário interage com a SPA para criar uma nova nota
-
-    browser->>spa: Usuário cria nova nota na interface
-    activate spa
-    spa->>server: Envia dados da nova nota (POST /api/notes)
-    activate server
-    server-->>database: Salva nova nota
-    activate database
-    database-->>server: Confirmação de salvamento
-    deactivate database
-    server-->>spa: Confirmação de salvamento
-    deactivate server
-    spa-->>browser: Atualiza interface com nova nota
-    deactivate spa
 ```
