@@ -18,3 +18,22 @@ sequenceDiagram
 
     Note right of browser: Atualização da interface do usuário após criar a nota
 ```
+```mermaid
+graph TD
+  subgraph Browser
+    a[User]
+    b[SPA Application]
+  end
+
+  subgraph Server
+    c[API Endpoint - /api/notes]
+    d[Database]
+  end
+
+  a -->|Interage com| b
+  b -->|Requests data from| c
+  c -->|Retrieves data from| d
+  b -->|Updates UI| b
+  b -->|Sends data to| c
+  c -->|Saves data to| d
+```
