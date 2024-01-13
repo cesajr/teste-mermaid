@@ -37,3 +37,25 @@ graph TD
   b -->|Sends data to| c
   c -->|Saves data to| d
 ```
+```mermaid
+graph TD
+  subgraph Browser
+    a[User]
+    b[SPA Application]
+  end
+
+  subgraph Server
+    c[API Endpoint - /api/notes]
+    d[Database]
+  end
+
+  a -->|Interage com| b
+  b -->|Requests data from| c
+  c -->|Retrieves data from| d
+  b -->|Updates UI| b
+  b -->|Sends data to| c
+  c -->|Saves data to| d
+  b -->|User creates a new note| b
+  b -->|Sends new note data to| c
+  c -->|Saves new note data to| d
+```
