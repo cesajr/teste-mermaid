@@ -19,48 +19,6 @@ sequenceDiagram
     Note right of browser: Atualização da interface do usuário após criar a nota
 ```
 ```mermaid
-graph TD
-  subgraph Browser
-    a[User]
-    b[SPA Application]
-  end
-
-  subgraph Server
-    c[API Endpoint - /api/notes]
-    d[Database]
-  end
-
-  a -->|Interage com| b
-  b -->|Requests data from| c
-  c -->|Retrieves data from| d
-  b -->|Updates UI| b
-  b -->|Sends data to| c
-  c -->|Saves data to| d
-```
-```mermaid
-graph TD
-  subgraph Browser
-    a[User]
-    b[SPA Application]
-  end
-
-  subgraph Server
-    c[API Endpoint - /api/notes]
-    d[Database]
-  end
-
-  a -->|Interage com| b
-  b -->|Requests data from| c
-  c -->|Retrieves data from| d
-  b -->|Updates UI| b
-  b -->|Sends data to| c
-  c -->|Saves data to| d
-  b -->|User creates a new note| b
-  b -->|Sends new note data to| c
-  c -->|Saves new note data to| d
-```
-
-```mermaid
 sequenceDiagram
     participant browser
     participant spa
@@ -81,6 +39,44 @@ sequenceDiagram
     deactivate server
     spa-->>browser: Atualiza interface com dados das notas
     deactivate spa
+```
 
-    Note right of browser: Usuário interage com a SPA para criar uma nova nota
+```mermaid
+sequenceDiagram
+    participant browser
+    participant spa
+    participant server
+    participant database
+
+    Note right of browser: Usuário cria uma nova nota na SPA
+
+    browser->>spa: Interage para criar uma nova nota
+    activate spa
+    spa->>browser: Exibe interface para criar nota
+    deactivate spa
+
+    Note right of browser: Usuário preenche os detalhes da nova nota
+
+    browser->>spa: Insere dados da nova nota
+    activate spa
+    spa-->>browser: Confirmação dos dados inseridos
+    deactivate spa
+
+    Note right of browser: SPA envia os dados da nova nota ao servidor
+
+    browser->>server: Envia dados da nova nota (POST /api/notes)
+    activate server
+    server-->>database: Salva nova nota
+    activate database
+    database-->>server: Confirmação de salvamento
+    deactivate database
+    server-->>browser: Confirmação de salvamento
+    deactivate server
+
+    Note right of browser: Atualização da interface após criar a nota
+
+    browser->>spa: Atualiza interface com nova nota
+    activate spa
+    spa-->>browser: Interface atualizada
+    deactivate spa
 ```
